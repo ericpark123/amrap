@@ -1,6 +1,6 @@
-import type { Config } from 'tailwindcss'
+/** @type {import('tailwindcss').Config} */
 
-const config: Config = {
+module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -15,6 +15,9 @@ const config: Config = {
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
+    },
+    container: {
+      center: true,
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
@@ -31,4 +34,3 @@ const config: Config = {
     }
   },
 }
-export default Config
