@@ -1,12 +1,25 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
+  mode: 'jit',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     colors: {
-      'blue': '#1fb6ff',
+      'havelock-blue': {
+        '50': '#eff7fe',
+        '100': '#e2effd',
+        '200': '#cae1fb',
+        '300': '#aacdf7',
+        '400': '#89aef0',
+        '500': '#6c91e8',
+        '600': '#5a76dd',
+        '700': '#415ac1',
+        '800': '#374c9c',
+        '900': '#33447c',
+        '950': '#1e2648',
+      },
       'purple': '#7e5bef',
       'pink': '#ff49db',
       'orange': '#ff7849',
