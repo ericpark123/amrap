@@ -1,5 +1,6 @@
 "use client"
 
+import { UserButton } from "@clerk/nextjs";
 import {
     NavigationMenu,
     NavigationMenuIndicator,
@@ -16,36 +17,48 @@ const HomeLayout = ({
     children: React.ReactNode;
 }) => {
     return (
-        <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
-          <div className = "flex-auto content-center justify-center">
-              <NavigationMenu>
-                  <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <Link href="/home" legacyBehavior passHref>
-                      <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                        Home
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                    <NavigationMenuItem>     
-                      <Link href="/sessions" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                          Sessions
-                        </NavigationMenuLink>
-                      </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <Link href="/map" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                          Map
-                        </NavigationMenuLink>
-                      </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuIndicator className="NavigationMenuIndicator" />
-                  </NavigationMenuList>
-                </NavigationMenu>
+        <div className ="relative flex min-h-screen flex-col">
+          <header className ="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+            <div className ="container flex h-14 items-center">
+              <div className ="mr-4 hidden md:flex">
+                <nav className= "flex items-center space-x-6 text-sm font-medium">
+                  <NavigationMenu>
+                      <NavigationMenuList>
+                      <NavigationMenuItem>
+                        <Link href="/home" legacyBehavior passHref>
+                          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                            Home
+                          </NavigationMenuLink>
+                        </Link>
+                      </NavigationMenuItem>
+                        <NavigationMenuItem>     
+                          <Link href="/sessions" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                              Sessions
+                            </NavigationMenuLink>
+                          </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                          <Link href="/locator" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                              Locator
+                            </NavigationMenuLink>
+                          </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuIndicator className="NavigationMenuIndicator" />
+                      </NavigationMenuList>
+                    </NavigationMenu>
+                  </nav>
+                </div> 
+              <div className ="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                <UserButton afterSignOutUrl="/"/>
+              </div>
             </div>
-          </nav>
+          </header>
+          <div className = "flex justify-center mt-11">
+            {children}
+          </div>
+        </div>       
     );
 }
 
