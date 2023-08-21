@@ -2,17 +2,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "./(components)/ui/navigation-menu"
-import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,32 +19,9 @@ export default function RootLayout({
     <ClerkProvider>
         <html lang="en">
           <body className={inter.className}>
-          <div className="relative h-32 w-32 ...">
-            <div className="absolute top-0 right-0 h-16 w-16 ...">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Sessions</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <NavigationMenuLink>
-                        <Link href="/sessions"> My Sessions </Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Profile</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <NavigationMenuLink>Link</NavigationMenuLink>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                  <NavigationMenuIndicator className="NavigationMenuIndicator" />
-                </NavigationMenuList>
-              </NavigationMenu>
-              </div>
-            </div>
             <main className="container mx-auto" >
-              <div className="flex items-start justify-center min-h-screen">
-                <div className="mt-20">
+              <div className="flex items-start justify-center min-h-screen mt-0">
+                <div className="mt-0">
                   {children}
                 </div>
               </div>
