@@ -18,7 +18,7 @@ const HomeLayout = ({
 }) => {
     return (
         <div className ="relative flex min-h-screen flex-col">
-          <header className ="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+          <header className ="sticky top-0 z-50 w-full border-b">
             <div className ="container flex h-14 items-center">
               <div className ="mr-4 hidden md:flex">
                 <nav className= "flex items-center space-x-6 text-sm font-medium">
@@ -39,9 +39,9 @@ const HomeLayout = ({
                           </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                          <Link href="/locator" legacyBehavior passHref>
+                          <Link href="/map" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                              Locator
+                              Map
                             </NavigationMenuLink>
                           </Link>
                         </NavigationMenuItem>
