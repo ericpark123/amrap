@@ -1,24 +1,23 @@
-//IMPORT MONGOOSE
 import mongoose, { Model } from "mongoose"
 
-// CONNECTING TO MONGOOSE (Get Database Url from .env.local)
 const { DATABASE_URL } = process.env
 
-// connection function
 export const connect = async () => {
   const conn = await mongoose
     .connect(DATABASE_URL as string)
     .catch(err => console.log(err))
   console.log("Mongoose Connection Established")
 
-  // OUR TODO SCHEMA
-  const TodoSchema = new mongoose.Schema({
-    item: String,
-    completed: Boolean,
+  const SessionSchema = new mongoose.Schema({
+    title: String,
+    skill: String,
+    description: String,
+    date: Date,
+    time: String,
+    participants: [],
   })
 
-  // OUR TODO MODEL
-  const Todo = mongoose.models.Todo || mongoose.model("Todo", TodoSchema)
+  const Session = mongoose.models.Session || mongoose.model("Session", SessionSchema)
 
-  return { conn, Todo }
+  return { conn, Session }
 }
