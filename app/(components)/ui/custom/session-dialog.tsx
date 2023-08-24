@@ -19,7 +19,7 @@ export function SessionDialog() {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button variant="outline">Create Session</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">

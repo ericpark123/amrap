@@ -64,97 +64,95 @@ export function SessionForm() {
     }
 
     return (
-      <div>
-        <Form {...form} >
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Label htmlFor="title" className="text-right">
-                          Title
-                      </Label>
-                      <Input id="title" placeholder="What kind of work out?" {...field}  className="col-span-3" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Label htmlFor="description" className="text-right">
-                      Description
-                    </Label>
-                    <Textarea id="description" placeholder="Provide some more details" {...field}  className="col-span-3 resize-none" />
-                    </FormControl>
-                  <FormMessage />        
-                </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="skill"
-                render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Label htmlFor="skill level" className="text-right">
-                      Skill Level
-                    </Label>
-                    <Select>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Select a level" {...field}/>
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="beginner">Beginner</SelectItem>
-                        <SelectItem value="intermediate">Intermediate</SelectItem>
-                        <SelectItem value="advanced">Advanced</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Label htmlFor="date" className="text-right">
-                      Date
-                    </Label>
-                    <DatePicker />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="time"
-                render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Label htmlFor="time" className="text-right">
-                      Time
-                    </Label>
-                    <Input id="time" placeholder="ex. 10:00 AM, 3:00 PM" {...field} className="col-span-3" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-                )}
-              />
-            <Button type="submit">Submit</Button>\
-          </form>
-        </Form>
-      </div>
+      <Form {...form} >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <Label htmlFor="title" className="text-right">
+                      Title
+                </Label>
+                <FormControl>
+                  <Input id="title" placeholder="What kind of work out?" {...field}  className="col-span-3" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+            <FormItem>
+              <Label htmlFor="description" className="text-right">
+                  Description
+              </Label>
+              <FormControl>   
+                <Textarea id="description" placeholder="Provide some more details" {...field}  className="col-span-3 resize-none" />
+              </FormControl>
+              <FormMessage />        
+            </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="skill"
+            render={({ field }) => (
+            <FormItem>
+              <Label htmlFor="skill level" className="text-right">
+                  Skill Level
+              </Label>
+              <FormControl> 
+                <Select>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select a level" {...field}/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="beginner">Beginner</SelectItem>
+                    <SelectItem value="intermediate">Intermediate</SelectItem>
+                    <SelectItem value="advanced">Advanced</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+            <FormItem>
+              <Label htmlFor="date" className="text-right">
+                  Date
+              </Label>
+              <FormControl>
+                <DatePicker />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="time"
+            render={({ field }) => (
+            <FormItem>
+              <Label htmlFor="time" className="text-right">
+                  Time
+              </Label>
+              <FormControl>
+                <Input id="time" placeholder="ex. 10:00 AM, 3:00 PM" {...field} className="col-span-3" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
     )
 }
 

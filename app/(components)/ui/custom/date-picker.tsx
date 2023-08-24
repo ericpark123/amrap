@@ -28,7 +28,7 @@ const [date, setDate] = React.useState<Date>()
   return (
     <div>
       <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger asChild>
         <Button
             variant={"outline"}
             className={cn(
