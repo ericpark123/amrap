@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
+  DialogClose,
 } from "../../shadcn/dialog"
 
 import { SessionForm } from "./session-form"
@@ -31,6 +32,13 @@ export function SessionDialog() {
           </DialogHeader>
             <div className="grid items-center gap-4">
               <SessionForm />
+              <div className="flex justify-end">
+                <DialogFooter>
+                  <DialogClose>
+                    <Button type="submit">Submit</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </div>   
             </div>
         </DialogContent>     
       </Dialog>

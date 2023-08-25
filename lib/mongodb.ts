@@ -13,8 +13,6 @@ export const connect = async () => {
     skill: String,
     description: String,
     date: Date,
-    time: String,
-    participants: [],
   })
 
   const Session = mongoose.models.Session || mongoose.model("Session", SessionSchema)
