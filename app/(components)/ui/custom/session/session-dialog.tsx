@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "../button"
+import { Button } from "../../shadcn/button"
 
 import {
   Dialog,
@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-} from "../dialog"
+} from "../../shadcn/dialog"
 
 import { SessionForm } from "./session-form"
 
@@ -29,11 +29,9 @@ export function SessionDialog() {
               Create a new session here!
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
             <div className="grid items-center gap-4">
               <SessionForm />
             </div>
-          </div>
         </DialogContent>     
       </Dialog>
     </div>    

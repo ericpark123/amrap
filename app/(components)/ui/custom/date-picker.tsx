@@ -4,14 +4,14 @@ import React from "react"
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { addDays, format } from "date-fns"
 import { cn } from "@/lib/utils"
-import { Button } from "../button"
-import { Calendar } from "../calendar"
+import { Button } from "../shadcn/button"
+import { Calendar } from "../shadcn/calendar"
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../popover"
+} from "../shadcn/popover"
 
 import {
     Select,
@@ -19,7 +19,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "../select"
+  } from "../shadcn/select"
  
 export function DatePicker() {
 

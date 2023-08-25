@@ -1,7 +1,8 @@
 "use client"
 
-import { Label } from "../label"
-import { Input } from "../input"
+import { Label } from "../../shadcn/label"
+import { Input } from "../../shadcn/input"
+import { parseAbsolute } from '@internationalized/date';
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -14,9 +15,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-  } from "../form"
+  } from "../../shadcn/form"
 import { useForm } from "react-hook-form"
-import { Textarea } from "../textarea"
+import { Textarea } from "../../shadcn/textarea"
 
 import {
   Select,
@@ -24,10 +25,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../select"
+} from "../../shadcn/select"
 
-import { DatePicker } from "./date-picker"
-import { Button } from "../button"
+import { Button } from "../../shadcn/button"
+import { DateTimePicker } from "../date-time-picker/date-time-picker"
 
 /* Form field validation */
 const formSchema = z.object({
@@ -38,12 +39,7 @@ const formSchema = z.object({
     skill: z.string({
       required_error: "Skill level is required",
     }),
-    date: z.date({
-      required_error: "Please select a date",
-    }),
-    time: z.string({
-      required_error: "Time is required",
-    }),
+    dateTime: z.date(),
   })
 
 export function SessionForm() {
@@ -53,9 +49,8 @@ export function SessionForm() {
         defaultValues: {
           title: "",
           description: "",
-          skill: "",
-          date: new Date,
-          time: "",
+          skill: "", 
+          dateTime: new Date(),
         },
       })
     
@@ -71,9 +66,9 @@ export function SessionForm() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <Label htmlFor="title" className="text-right">
+                <FormLabel htmlFor="title" className="text-right">
                       Title
-                </Label>
+                </FormLabel>
                 <FormControl>
                   <Input id="title" placeholder="What kind of work out?" {...field}  className="col-span-3" />
                 </FormControl>
@@ -86,9 +81,9 @@ export function SessionForm() {
             name="description"
             render={({ field }) => (
             <FormItem>
-              <Label htmlFor="description" className="text-right">
+              <FormLabel htmlFor="description" className="text-right">
                   Description
-              </Label>
+              </FormLabel>
               <FormControl>   
                 <Textarea id="description" placeholder="Provide some more details" {...field}  className="col-span-3 resize-none" />
               </FormControl>
@@ -98,12 +93,38 @@ export function SessionForm() {
           />
           <FormField
             control={form.control}
+            name="dateTime"
+            render={({ field }) => (
+            <FormItem>
+              <Label htmlFor="date" className="text-right">
+                  Date
+              </Label>
+              <DateTimePicker
+                onBlur={field.onBlur}
+                value={
+                  !!field.value
+                    ? parseAbsolute(field.value.toISOString(), "GMT")
+                    : null
+                }
+                onChange={(date) => {
+                  field.onChange(!!date ? date.toDate("GMT") : new Date());
+                }}
+                granularity="minute"
+                />
+              <FormControl>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="skill"
             render={({ field }) => (
             <FormItem>
-              <Label htmlFor="skill level" className="text-right">
+              <FormLabel htmlFor="skill level" className="text-right">
                   Skill Level
-              </Label>
+              </FormLabel>
               <FormControl> 
                 <Select>
                   <SelectTrigger className="w-[180px]">
@@ -120,37 +141,9 @@ export function SessionForm() {
             </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-            <FormItem>
-              <Label htmlFor="date" className="text-right">
-                  Date
-              </Label>
-              <FormControl>
-                <DatePicker />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="time"
-            render={({ field }) => (
-            <FormItem>
-              <Label htmlFor="time" className="text-right">
-                  Time
-              </Label>
-              <FormControl>
-                <Input id="time" placeholder="ex. 10:00 AM, 3:00 PM" {...field} className="col-span-3" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
+          <div className="flex justify-center">
+            <Button type="submit">Submit</Button>
+          </div>
         </form>
       </Form>
     )
