@@ -1,24 +1,26 @@
-import Link from "next/link";
-import { Button } from "../(components)/ui/shadcn/button";
+"use client"
+
+import { useUser, SignInButton, SignUpButton } from '@clerk/nextjs'
+import Link from 'next/link'
 
 const LandingPage = () => {
+  const { isSignedIn, isLoaded, user } = useUser()
+  
   return (
-    <div>
-      Landing Page
-        <div>
-          <Link href="/sign-up">
-            <Button>
-              Register
-            </Button>
-          </Link>
-          <Link href="/sign-in">
-            <Button>
-              Login
-            </Button>
-          </Link>
-        </div>
-    </div>
-  );
+    <div className="flex justify-center mt-11">
+      <h1>Landing Page </h1>
+      {
+        isSignedIn ?
+        <Link href="/home">Welcome {user.firstName}</Link>:
+        (
+          <div className="flex justify-end">
+            <SignInButton />
+            <SignUpButton />
+          </div>
+        )    
+      }
+    </div>   
+  )
 }
 
-export default LandingPage;
+export default LandingPage

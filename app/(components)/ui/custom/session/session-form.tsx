@@ -3,7 +3,6 @@
 import { Label } from "../../shadcn/label"
 import { Input } from "../../shadcn/input"
 import { parseAbsolute } from '@internationalized/date';
-import { Button } from "../../shadcn/button"
 import { DateTimePicker } from "../date-time-picker/date-time-picker"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -12,7 +11,6 @@ import * as z from "zod"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -37,10 +35,10 @@ const formSchema = z.object({
       required_error: "Title is required",
     }),
     description: z.string().optional(),
+    dateTime: z.date(),
     skill: z.string({
       required_error: "Skill level is required",
     }),
-    dateTime: z.date(),
   })
 
 export function SessionForm() {
@@ -52,13 +50,13 @@ export function SessionForm() {
       defaultValues: {
         title: "",
         description: "",
-        skill: "", 
         dateTime: new Date(),
+        skill: "",  
       },
     })
   
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await fetch('/sessions', {
+    await fetch('/api/sessions', {
       method: "post",
       headers: {
         "Content-Type": "application/json",
