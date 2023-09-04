@@ -154,11 +154,3 @@ export function SessionForm() {
   )
 }
 
-export async function getStaticProps(context: any) {
-  return {
-    props: {
-      url: process.env.NEXT_PUBLIC_MONGODB_URI,
-    },
-  }
-}
-
