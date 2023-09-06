@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs';
 
 const prisma = new PrismaClient()
 
-export async function GET(res: NextResponse)  {
+export async function GET()  {
   const { userId } = auth()
   if (!userId) {
     return new Response("Unauthorized access detected", {
