@@ -12,10 +12,9 @@
 //        });
 //   }
 
-//   const id = userId
 //   const sessions = await prisma.session.findUnique({
 //     where: {
-//         userId: id
+//         userId: userId
 //     }
 //   })
 //   return NextResponse.json(sessions)

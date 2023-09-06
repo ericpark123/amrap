@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs';
 
 const prisma = new PrismaClient()
 
-export async function GET()  {
+export async function GET(res: NextResponse)  {
   const { userId } = auth()
   if (!userId) {
     return new Response("Unauthorized access detected", {
@@ -15,18 +15,23 @@ export async function GET()  {
   return NextResponse.json(sessions)
 }
 
-export async function POST(request: Request) {
-
+export async function POST(req: Request, res: NextResponse) {
+  
   const { userId } = auth()
-
-  if(!userId){
-      return new Response("Unauthorized", { status: 401 });
+  if( !userId ){
+    return new Response("Unauthorized", { status: 401 });
   }
-
-  const json = await request.json()
-  const sessions = await prisma.session.create({
-      data: json
+  
+  const {title, description, dateTime, skill} = await req.json()
+  const session = await prisma.session.create({
+      data: {
+        userId,    
+        title: title,
+        description: description,
+        date: dateTime,
+        skill: skill,
+      }
   })
 
-  return new NextResponse(JSON.stringify(sessions), {status : 201})
+  return new NextResponse(JSON.stringify(session), {status : 201})
 }

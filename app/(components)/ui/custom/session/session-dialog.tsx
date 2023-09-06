@@ -31,14 +31,7 @@ export function SessionDialog() {
             </DialogDescription>
           </DialogHeader>
             <div className="grid items-center gap-4">
-              <SessionForm />
-              <div className="flex justify-end">
-                <DialogFooter>
-                  <DialogClose>
-                    <Button type="submit">Submit</Button>
-                  </DialogClose>
-                </DialogFooter>
-              </div>   
+              <SessionForm />    
             </div>
         </DialogContent>     
       </Dialog>

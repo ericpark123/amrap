@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "../../shadcn/select"
 
-import { useRouter } from "next/navigation"
+import { Button } from "../../shadcn/button";
 
 /* Form field validation */
 const formSchema = z.object({
@@ -41,9 +41,8 @@ const formSchema = z.object({
     }),
   })
 
+
 export function SessionForm() {
-  
-  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -55,15 +54,19 @@ export function SessionForm() {
       },
     })
   
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    await fetch('/api/sessions', {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const postSession = async(values: z.infer<typeof formSchema>) => {
+    const res = fetch("http://localhost:3000/api/sessions", {
+      method: "POST",
       body: JSON.stringify(values),
+      //@ts-ignore
+      'content-type': 'application/json'
     })
-    router.push("/sessions")
+  }
+ 
+  
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    postSession(values)
+    console.log("Success")
   }
 
   return (
@@ -134,9 +137,9 @@ export function SessionForm() {
                 Skill Level
             </FormLabel>
             <FormControl> 
-              <Select>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a level" {...field}/>
+                  <SelectValue placeholder="Select a level"/>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="beginner">Beginner</SelectItem>
@@ -145,6 +148,9 @@ export function SessionForm() {
                 </SelectContent>
               </Select>
             </FormControl>
+              <div className="flex justify-end">
+                <Button type="submit">Submit</Button>
+              </div>
             <FormMessage />
           </FormItem>
           )}
