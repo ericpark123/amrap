@@ -27,46 +27,65 @@ import {
   SelectValue,
 } from "../../shadcn/select"
 
-import { Button } from "../../shadcn/button";
+import { Button } from "../../shadcn/button"
+import { useToast } from "../../shadcn/use-toast"
 
-/* Form field validation */
-const formSchema = z.object({
+const sessionformSchema = z.object({
     title: z.string({
       required_error: "Title is required",
+    })
+    .min(1, {
+      message: "Title must be at least 1 character.",
+    })
+    .max(30, {
+      message: "Title must not be longer than 30 characters."
     }),
-    description: z.string().optional(),
-    dateTime: z.date(),
+    description: z.string({
+      required_error: "Description is required",
+    }).min(1, {
+      message: "Description must be at least 1 character.",
+    })
+    .max(100, {
+      message: "Description must not be longer than 30 characters."
+    }),
+    dateTime: z.coerce.date(),
     skill: z.string({
       required_error: "Skill level is required",
-    }),
+    })
+    .min(1, {
+      message: "Skill level must be chosen",
+    })
   })
 
+type SessionFormValues = z.infer<typeof sessionformSchema>
+
+const defaultValues: Partial<SessionFormValues> = {
+    title: "",
+    description: "",
+    dateTime: new Date(),
+    skill: "",  
+}
 
 export function SessionForm() {
+  const { toast } = useToast()
 
-  const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        title: "",
-        description: "",
-        dateTime: new Date(),
-        skill: "",  
-      },
-    })
+  const form = useForm<SessionFormValues>({
+    resolver: zodResolver(sessionformSchema),
+    defaultValues,
+    mode: "onChange",
+  })
   
-  const postSession = async(values: z.infer<typeof formSchema>) => {
-    const res = fetch("http://localhost:3000/api/sessions", {
+  const postSession = async(data: SessionFormValues) => {
+    fetch("http://localhost:3000/api/sessions", {
       method: "POST",
-      body: JSON.stringify(values),
+      body: JSON.stringify(data),
       //@ts-ignore
       'content-type': 'application/json'
     })
   }
  
-  
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    postSession(values)
-    console.log("Success")
+  function onSubmit(data: SessionFormValues) {
+    postSession(data)
   }
 
   return (
@@ -148,10 +167,19 @@ export function SessionForm() {
                 </SelectContent>
               </Select>
             </FormControl>
-              <div className="flex justify-end">
-                <Button type="submit">Submit</Button>
-              </div>
             <FormMessage />
+              <div className="flex justify-end">
+                <Button 
+                  type="submit"
+                  onClick={() => {
+                    toast({
+                      description: "Your session has been created",
+                    })
+                  }}
+                  >
+                  Create
+                </Button>
+              </div>
           </FormItem>
           )}
         />

@@ -15,7 +15,7 @@ export async function GET()  {
   return NextResponse.json(sessions)
 }
 
-export async function POST(req: Request, res: NextResponse) {
+export async function POST(req: Request) {
   
   const { userId } = auth()
   if( !userId ){

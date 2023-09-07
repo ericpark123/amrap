@@ -19,36 +19,28 @@ export default async function Session() {
       </div>
       <div dir="ltr" data-orientation="horizontal" className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {sessions?.map((session: any) => ( 
-          <div className="rounded-xl border bg-card text-card-foreground shadow">
-            <div className="p-6 flex flex-row items-center justify-between">
-              <div className="flex items-center">
-                <ul>
-                  <li key={session.title}>
+          {sessions?.map((session: any) => ( 
+            <div className="rounded-xl border bg-card text-card-foreground shadow">
+              <div className="p-6 flex flex-row items-center justify-between">
+                <div className="flex items-center">
+                  <li key={session.id} className="list-none" >
                     <h3 className="tracking-tight text-sm font-medium">
                       {session.title}
                     </h3>
-                  </li>
-                  <li key={session.description}>
                     <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {session.description}
                     </p> 
-                  </li>
-                  <li key= {session.skill}>
-                  <p className="tracking-tight text-xs text-muted-foreground font-small">
+                    <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {session.skill}
                     </p> 
-                  </li>
-                  <li key={new Date(session.date).toLocaleString()}>
                     <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {new Date(session.date).toLocaleString()}
                     </p> 
                   </li>
-                </ul>
+                </div>
               </div>
             </div>
-          </div>
-        ))}      
+          ))}      
         </div>
       </div>
       <div className="flex items-center justify-center mt-12">
