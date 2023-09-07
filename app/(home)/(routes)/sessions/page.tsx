@@ -1,11 +1,11 @@
-import { SessionDialog } from "@/app/(components)/ui/custom/session/session-dialog";
-import * as React from "react"
+import { SessionDialog } from "@/app/(components)/ui/custom/session/session-dialog"
 
 async function getSessions() {
-  const response = await import("@/app/api/sessions/route");
+  const response = await import("@/app/api/sessions/route")
   return await ((await response.GET()).json())
 }
 export default async function Session() {
+  
   const sessions = await getSessions()
   
   return (
@@ -24,22 +24,22 @@ export default async function Session() {
             <div className="p-6 flex flex-row items-center justify-between">
               <div className="flex items-center">
                 <ul>
-                  <li>
+                  <li key={session.title}>
                     <h3 className="tracking-tight text-sm font-medium">
                       {session.title}
                     </h3>
                   </li>
-                  <li>
+                  <li key={session.description}>
                     <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {session.description}
                     </p> 
                   </li>
-                  <li>
+                  <li key= {session.skill}>
                   <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {session.skill}
                     </p> 
                   </li>
-                  <li>
+                  <li key={new Date(session.date).toLocaleString()}>
                     <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {new Date(session.date).toLocaleString()}
                     </p> 
