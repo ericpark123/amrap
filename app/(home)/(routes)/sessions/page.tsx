@@ -1,9 +1,19 @@
 import { SessionDialog } from "@/app/(components)/ui/custom/session/session-dialog"
+import { Button } from "@/app/(components)/ui/shadcn/button"
 
 async function getSessions() {
   const response = await import("@/app/api/sessions/route")
   return await ((await response.GET()).json())
 }
+
+async function deleteSession(id: String) {
+  fetch(`api/sessions/${id}`, {
+      method: "DELETE",
+      //@ts-ignore
+      'content-type': 'application/json'
+    })
+}
+
 export default async function Session() {
   
   const sessions = await getSessions()
@@ -20,7 +30,7 @@ export default async function Session() {
       <div dir="ltr" data-orientation="horizontal" className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {sessions?.map((session: any) => ( 
-            <div className="rounded-xl border bg-card text-card-foreground shadow">
+            <div className="rounded-xl border bg-card text-card-foreground shadow" key={session.id}>
               <div className="p-6 flex flex-row items-center justify-between">
                 <div className="flex items-center">
                   <li key={session.id} className="list-none" >

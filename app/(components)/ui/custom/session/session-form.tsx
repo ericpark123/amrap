@@ -76,12 +76,17 @@ export function SessionForm() {
   })
   
   const postSession = async(data: SessionFormValues) => {
-    fetch("http://localhost:3000/api/sessions", {
-      method: "POST",
-      body: JSON.stringify(data),
-      //@ts-ignore
-      'content-type': 'application/json'
-    })
+    try {
+      fetch('/api/sessions', {
+        method: "POST",
+        body: JSON.stringify(data),
+        //@ts-ignore
+        'content-type': 'application/json'
+      })
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
  
   function onSubmit(data: SessionFormValues) {
