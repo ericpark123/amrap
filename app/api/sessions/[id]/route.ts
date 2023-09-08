@@ -4,54 +4,50 @@ import { auth } from '@clerk/nextjs';
 
 const prisma = new PrismaClient()
 
-export async function GET()  {
+// Remove session only if created by the user
+export async function DELETE(req: Request)  {
+  
+  // Validate user
   const { userId } = auth()
   if (!userId) {
     return new Response("Unauthorized access detected", {
-       status: 401
-       });
+      status: 401
+      })
   }
 
-  const sessions = await prisma.session.findMany({
-    where: { userId: userId }
+  // Remove session
+  const id = req.url.split("sessions/")[1]
+
+  const session = await prisma.session.delete({
+    where: {
+      id: id,
+      createdBy: userId
+    }
   })
-  return NextResponse.json(sessions)
+
+  return NextResponse.json(session)
 }
 
-export async function DELETE(req: Request)  {
+// Update session only if created by the user
+export async function PUT(req: Request)  {
+
+    // Validate user
     const { userId } = auth()
     if (!userId) {
       return new Response("Unauthorized access detected", {
-         status: 401
-         });
-    }
-
-    const id = req.url.split("sessions/")[1]
-    const sessions = await prisma.session.delete({
-        where: {
-            id: id
-        }
-    })
-    return NextResponse.json(sessions)
-  }
-
-
-export async function PUT(req: Request)  {
-    const { userId } = auth()
-    if (!userId) {
-        return new Response("Unauthorized access detected", {
-            status: 401
-            });
+          status: 401
+          })
     }
     
+    // Update session
     const {title, description, dateTime, skill} = await req.json()
     const id = req.url.split("sessions/")[1]
     const sessions = await prisma.session.update({
         where: {
-            id: id
+            id: id,
+            createdBy: userId
         },
-        data: {
-            userId,    
+        data: {   
             title: title,
             description: description,
             date: dateTime,
