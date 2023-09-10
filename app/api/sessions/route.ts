@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 import { auth } from '@clerk/nextjs'
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/db'
 
 // Get all sessions
 export async function GETALL()  {

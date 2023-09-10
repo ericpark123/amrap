@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs';
 
-const prisma = new PrismaClient()
 
 // Remove session only if created by the user
 export async function DELETE(req: Request)  {
@@ -18,14 +17,17 @@ export async function DELETE(req: Request)  {
   // Remove session
   const id = req.url.split("sessions/")[1]
 
-  const session = await prisma.session.delete({
-    where: {
-      id: id,
-      createdBy: userId
-    }
-  })
-
-  return NextResponse.json(session)
+  try {
+    const session = await prisma.session.delete({
+      where: {
+        id: id,
+        createdBy: userId
+      }
+    })
+    return NextResponse.json(session)
+  } catch (error) {
+    console.log("Cannot update session")
+  } 
 }
 
 // Update session only if created by the user
@@ -42,17 +44,50 @@ export async function PUT(req: Request)  {
     // Update session
     const {title, description, dateTime, skill} = await req.json()
     const id = req.url.split("sessions/")[1]
-    const sessions = await prisma.session.update({
+    try {
+      const session = await prisma.session.update({
         where: {
-            id: id,
-            createdBy: userId
+          id: id,
+          createdBy: userId
         },
         data: {   
-            title: title,
-            description: description,
-            date: dateTime,
-            skill: skill,
-          }
+          title: title,
+          description: description,
+          date: dateTime,
+          skill: skill,
+        }     
+      })
+      return NextResponse.json(session)
+    } catch (error) {
+      console.log("Cannot update session")
+    }
+}
+
+// Join session as participant
+export async function JOIN(req: Request)  {
+
+  // Validate user
+  const { userId } = auth()
+  if (!userId) {
+    return new Response("Unauthorized access detected", {
+        status: 401
+        })
+  }
+  
+  // Join session
+  const id = req.url.split("sessions/")[1]
+  try {
+    const session = await prisma.session.update({
+      where: {
+        id: id,
+      },
+      data: {   
+        participants: {connect: { id: userId }}
+      }     
     })
-    return NextResponse.json(sessions)
+    return NextResponse.json(session)
+  } catch (error) {
+    console.log("Cannot join session")
+  }
+  
 }

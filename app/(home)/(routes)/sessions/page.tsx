@@ -1,19 +1,9 @@
-import { SessionDialog } from "@/app/(components)/ui/custom/session/session-dialog"
-
 async function getSessions() {
   const response = await import("@/app/api/sessions/route")
   return await ((await response.GETALL()).json())
 }
 
-async function deleteSession(id: String) {
-  fetch(`api/sessions/${id}`, {
-      method: "DELETE",
-      //@ts-ignore
-      'content-type': 'application/json'
-    })
-}
-
-export default async function Session() {
+export default async function Sessions() {
   
   const sessions = await getSessions()
   
@@ -51,9 +41,6 @@ export default async function Session() {
             </div>
           ))}      
         </div>
-      </div>
-      <div className="flex items-center justify-center mt-12">
-        <SessionDialog />
       </div>
       </main>
       

@@ -1,17 +1,42 @@
-import { UserButton } from "@clerk/nextjs"
 import {
     NavigationMenu,
+    NavigationMenuContent,
     NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
+    NavigationMenuTrigger,
     navigationMenuTriggerStyle,
   } from "../../shadcn/navigation-menu"
 
 import Link from 'next/link'
 import { Button } from "../../shadcn/button"
-import { useState } from "react";
-import { AlignJustify, X } from "lucide-react";
+import { useState } from "react"
+import { AlignJustify, X } from "lucide-react"
+import { UserButton } from "@clerk/nextjs"
+import React from 'react'
+import { cn } from "@/lib/utils"
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Session Feed",
+    href: "/sessions",
+    description:
+      "View and join all sessions created by other users!",
+  },
+  {
+    title: "My Sessions",
+    href: "/mysessions",
+    description:
+      "View, create, edit and delete all your sessions!",
+  },
+  // {
+  //   title: "Progress",
+  //   href: "/docs/primitives/progress",
+  //   description:
+  //     "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  // },
+]
 
 export function Navbar (){
 
@@ -60,12 +85,21 @@ export function Navbar (){
                           </NavigationMenuLink>
                         </Link>
                       </NavigationMenuItem>
-                        <NavigationMenuItem>     
-                          <Link href="/sessions" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                              Sessions
-                            </NavigationMenuLink>
-                          </Link>
+                        <NavigationMenuItem>
+                          <NavigationMenuTrigger>Sessions</NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                              {components.map((component) => (
+                                <ListItem
+                                  key={component.title}
+                                  title={component.title}
+                                  href={component.href}
+                                >
+                                  {component.description}
+                                </ListItem>
+                              ))}
+                            </ul>
+                          </NavigationMenuContent>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                           <Link href="/map" legacyBehavior passHref>
@@ -86,3 +120,29 @@ export function Navbar (){
         </header>
     )
 }
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  )
+})
+ListItem.displayName = "ListItem"
