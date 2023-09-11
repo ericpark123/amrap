@@ -207,7 +207,7 @@ export function SessionDialog() {
                   />
                   <div className="flex justify-end">
                     <Button 
-                      type="submit" >
+                      type="submit" variant="outline" >
                         Create
                     </Button>   
                   </div>

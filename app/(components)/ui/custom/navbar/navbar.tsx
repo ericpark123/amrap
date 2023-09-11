@@ -56,8 +56,8 @@ export function Navbar (){
                   </Button>
                   )}
                   <div
-                    className={`-z-20 mt-12 left-0 right-0 w-full h-full bg-white text-white fixed ease-in-out duration-300  ${
-                      showMobileNav ? "translate-y-0 shadow-lg" : "-translate-y-full"
+                    className={`-z-20 mt-12 left-0 right-0 w-full h-full fixed ease-in-out duration-300  ${
+                      showMobileNav ? "-translate-y-14 shadow-lg bg-white" : "-translate-y-full"
                     }`}
                   >
                     <div className="flex flex-col py-10 text-black">
@@ -74,8 +74,8 @@ export function Navbar (){
                   </div>
               </>
               </section>
-              <div className ="mr-4 hidden lg:flex ">
-                <nav className= "flex items-center space-x-6 text-sm font-medium">
+              <div className ="mr-4 hidden lg:flex">
+                <nav className= "flex items-center space-x-6 text-sm font-medium ">
                   <NavigationMenu>
                       <NavigationMenuList>
                       <NavigationMenuItem>
@@ -88,7 +88,7 @@ export function Navbar (){
                         <NavigationMenuItem>
                           <NavigationMenuTrigger>Sessions</NavigationMenuTrigger>
                           <NavigationMenuContent>
-                            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                               {components.map((component) => (
                                 <ListItem
                                   key={component.title}

@@ -2,6 +2,27 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs';
 
+// Get all sessions
+export async function GETDATE(req: Request)  {
+
+  // Validate user
+  const { userId } = auth()
+  if (!userId) {
+    return new Response("Unauthorized access detected", {
+       status: 401
+       });
+  }
+
+  const id = req.url.split("sessions/")[1]
+  // Return all sessions
+  const sessions = await prisma.session.findMany({
+      where: {
+        id: id,
+        createdBy: userId
+      }
+    })
+  return NextResponse.json(sessions)
+}
 
 // Remove session only if created by the user
 export async function DELETE(req: Request)  {

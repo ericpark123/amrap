@@ -10,7 +10,7 @@ const HomeLayout = ({
     return (
         <div className ="relative flex min-h-screen flex-col">
           <Navbar/>
-          <div className = "flex justify-center mt-11">
+          <div className = "flex justify-center mt-11 ">
             {children}
           </div>
         </div>       
