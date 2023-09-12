@@ -19,7 +19,7 @@ export async function GETALL()  {
 }
 
 // Get all user sessions
-export async function GETUSER()  {
+export async function GETACTIVE()  {
 
   // Validate user
   const { userId } = auth()

@@ -18,6 +18,7 @@ import {
   } from "../../shadcn/form"
 import { useForm } from "react-hook-form"
 import { Textarea } from "../../shadcn/textarea"
+import { useRouter } from 'next/navigation';
 
 import {
   Dialog,
@@ -26,9 +27,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
-  DialogClose,
 } from "../../shadcn/dialog"
+
 import {
   Select,
   SelectContent,
@@ -39,7 +39,9 @@ import {
 
 import { Button } from "../../shadcn/button"
 import { useToast } from "../../shadcn/use-toast"
-import { useState } from "react";
+import { useState } from "react"
+import { Pencil } from "lucide-react";
+
 
 const sessionformSchema = z.object({
     title: z.string({
@@ -77,49 +79,51 @@ const defaultValues: Partial<SessionFormValues> = {
     skill: "",  
 }
 
-export function SessionDialog() {
-  const { toast } = useToast()
-  let [open, setOpen] = useState(false)
+export function EditSessionDialog(session: any) {
+    const [open, setOpen] = useState(false)
+    const router = useRouter()
+    const sessionId = session.id
+    
 
-  const form = useForm<SessionFormValues>({
-    resolver: zodResolver(sessionformSchema),
-    defaultValues,
-    mode: "onChange",
-  })
-  
-  const postSession = async(data: SessionFormValues) => {
-    try {
-      fetch('/api/sessions', {
-        method: "POST",
-        body: JSON.stringify(data),
-        //@ts-ignore
-        'content-type': 'application/json'
-      })
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
- 
-  async function onSubmit(data: SessionFormValues) {
-    postSession(data)
-    toast({
-      description: "Your session has been created",
+    const form = useForm<SessionFormValues>({
+        resolver: zodResolver(sessionformSchema),
+        defaultValues,
+        mode: "onChange",
     })
-    setOpen(false)
-  }
+    
+    const updateSession = async(data: SessionFormValues) => {
+        try {
+            fetch(`/api/sessions/${sessionId}`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+                //@ts-ignore
+                'content-type': 'application/json'
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
+    async function onSubmit(data: SessionFormValues) {
+        updateSession(data)
+        setOpen(false)
+        router.refresh()
+    }
+    
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Create Session</Button>
+            <Button size="xs" variant="ghost">
+                <Pencil size={16} color="#151a29" />
+            </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create Session</DialogTitle>
+            <DialogTitle>Edit Session</DialogTitle>
             <DialogDescription>
-              Create a new session here!
+              Edit your session here!
             </DialogDescription>
           </DialogHeader>
             <div className="grid items-center gap-4">
@@ -208,7 +212,7 @@ export function SessionDialog() {
                   <div className="flex justify-end">
                     <Button 
                       type="submit" variant="outline" >
-                        Create
+                        Save
                     </Button>   
                   </div>
                 </form>

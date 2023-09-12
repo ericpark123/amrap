@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs';
 
 // Get all sessions
-export async function GETDATE(req: Request)  {
+export async function GET(req: Request)  {
 
   // Validate user
   const { userId } = auth()
@@ -15,10 +15,9 @@ export async function GETDATE(req: Request)  {
 
   const id = req.url.split("sessions/")[1]
   // Return all sessions
-  const sessions = await prisma.session.findMany({
+  const sessions = await prisma.session.findUnique({
       where: {
         id: id,
-        createdBy: userId
       }
     })
   return NextResponse.json(sessions)
@@ -42,12 +41,11 @@ export async function DELETE(req: Request)  {
     const session = await prisma.session.delete({
       where: {
         id: id,
-        createdBy: userId
       }
     })
     return NextResponse.json(session)
   } catch (error) {
-    console.log("Cannot update session")
+    console.log("Cannot delete session")
   } 
 }
 
@@ -69,7 +67,6 @@ export async function PUT(req: Request)  {
       const session = await prisma.session.update({
         where: {
           id: id,
-          createdBy: userId
         },
         data: {   
           title: title,
