@@ -1,8 +1,8 @@
 import { SessionCalendar } from "@/app/(components)/ui/custom/session/session-calendar"
 
 async function getSessions() {
-  const response = await import("@/app/api/sessions/route")
-  return await ((await response.GETALL()).json())
+    const response = await import("@/app/api/sessions/all/route")
+    return await ((await response.GET()).json())
 }
 
 export default async function Home() {
@@ -10,7 +10,7 @@ export default async function Home() {
   
   return (
     <main className="container relative">
-      <div className="grid grid-cols-2 divide-x">
+      <div className="grid grid-cols-2">
         <div className="flex space-y-4 p-8 pt-4">
           <div className="fixed px-40 py-40">
           <SessionCalendar />
@@ -25,11 +25,11 @@ export default async function Home() {
             </div>
               <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
                 {sessions?.map((session: any) => ( 
-                  <div className="rounded-xl border bg-card text-card-foreground shadow hover:bg-primary-foreground" key={session.id}>
-                    <div className="p-6 flex flex-row items-center justify-between">
+                  <div className="rounded-xl border bg-primary-foreground text-background shadow" key={session.id}>
+                    <div className="px-10 py-10 flex flex-row items-center justify-between">   
                       <div className="flex items-center">
                         <li key={session.id} className="list-none" >
-                          <h3 className="tracking-tight text-sm font-medium">
+                          <h3 className="tracking-tight text-large font-bold">
                             {session.title}
                           </h3>
                           <p className="tracking-tight text-xs text-muted-foreground font-small">

@@ -1,27 +1,27 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { auth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs'
 
-// Get all sessions
-export async function GET(req: Request)  {
+// // Get one session
+// export async function GET(req: Request)  {
 
-  // Validate user
-  const { userId } = auth()
-  if (!userId) {
-    return new Response("Unauthorized access detected", {
-       status: 401
-       });
-  }
+//   // Validate user
+//   const { userId } = auth()
+//   if (!userId) {
+//     return new Response("Unauthorized access detected", {
+//        status: 401
+//        });
+//   }
 
-  const id = req.url.split("sessions/")[1]
-  // Return all sessions
-  const sessions = await prisma.session.findUnique({
-      where: {
-        id: id,
-      }
-    })
-  return NextResponse.json(sessions)
-}
+//   const id = req.url.split("sessions/")[1]
+//   // Return all sessions
+//   const sessions = await prisma.session.findUnique({
+//       where: {
+//         id: id,
+//       },
+//     })
+//   return NextResponse.json(sessions)
+// }
 
 // Remove session only if created by the user
 export async function DELETE(req: Request)  {
@@ -34,55 +34,34 @@ export async function DELETE(req: Request)  {
       })
   }
 
-  // Remove session
   const id = req.url.split("sessions/")[1]
-
+  // Remove session
   try {
-    const session = await prisma.session.delete({
+    await prisma.user.update({
       where: {
-        id: id,
+        id: userId
+      },
+      data: {
+        sessions: {
+          disconnect : {
+            id: id
+          }
+        } 
       }
     })
-    return NextResponse.json(session)
+    await prisma.session.delete({
+      where: {
+        id: id
+      }
+    })
   } catch (error) {
-    console.log("Cannot delete session")
-  } 
+    console.log(error)
+  }
+  return NextResponse.json(JSON.stringify(req), {status : 201})
 }
 
 // Update session only if created by the user
 export async function PUT(req: Request)  {
-
-    // Validate user
-    const { userId } = auth()
-    if (!userId) {
-      return new Response("Unauthorized access detected", {
-          status: 401
-          })
-    }
-    
-    // Update session
-    const {title, description, dateTime, skill} = await req.json()
-    const id = req.url.split("sessions/")[1]
-    try {
-      const session = await prisma.session.update({
-        where: {
-          id: id,
-        },
-        data: {   
-          title: title,
-          description: description,
-          date: dateTime,
-          skill: skill,
-        }     
-      })
-      return NextResponse.json(session)
-    } catch (error) {
-      console.log("Cannot update session")
-    }
-}
-
-// Join session as participant
-export async function JOIN(req: Request)  {
 
   // Validate user
   const { userId } = auth()
@@ -92,20 +71,23 @@ export async function JOIN(req: Request)  {
         })
   }
   
-  // Join session
+  // Update session
+  const {title, description, dateTime, skill} = await req.json()
   const id = req.url.split("sessions/")[1]
   try {
-    const session = await prisma.session.update({
+    await prisma.session.update({
       where: {
         id: id,
       },
       data: {   
-        participants: {connect: { id: userId }}
+        title: title,
+        description: description,
+        date: dateTime,
+        skill: skill,
       }     
     })
-    return NextResponse.json(session)
   } catch (error) {
-    console.log("Cannot join session")
+    console.log(error)
   }
-  
+  return new NextResponse(JSON.stringify(req), {status : 201})
 }

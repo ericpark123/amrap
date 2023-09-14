@@ -27,8 +27,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
-  DialogClose,
 } from "../../shadcn/dialog"
 
 import {
@@ -80,7 +78,6 @@ const defaultValues: Partial<SessionFormValues> = {
 }
 
 export function CreateSessionDialog() {
-  const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const router = useRouter()
 
@@ -91,26 +88,22 @@ export function CreateSessionDialog() {
   })
   
   const postSession = async(data: SessionFormValues) => {
-    try {
-      fetch('/api/sessions', {
-        method: "POST",
-        body: JSON.stringify(data),
-        //@ts-ignore
-        'content-type': 'application/json'
-      })
-    }
-    catch (error) {
+    fetch('/api/sessions', {
+      method: "POST",
+      body: JSON.stringify(data),
+      //@ts-ignore
+      'content-type': 'application/json'
+    }).then((res) => {
+      console.log(res)
+      router.refresh()
+    }).catch((error) => {
       console.log(error)
-    }
+    })
   }
  
   async function onSubmit(data: SessionFormValues) {
     postSession(data)
-    toast({
-      description: "Your session has been created",
-    })
     setOpen(false)
-    router.refresh()
   }
 
   return (

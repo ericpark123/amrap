@@ -25,8 +25,8 @@ const components: { title: string; href: string; description: string }[] = [
       "View, create, edit and delete all your sessions!",
   },
   {
-    title: "Join Session",
-    href: "/joinsessions",
+    title: "Open Sessions",
+    href: "/opensessions",
     description:
       "Join sessions created by other users!",
   },

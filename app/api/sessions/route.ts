@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs'
 import { prisma } from '@/lib/db'
 
 // Get all sessions
-export async function GETALL()  {
+export async function GET()  {
 
   // Validate user
   const { userId } = auth()
@@ -15,45 +15,6 @@ export async function GETALL()  {
 
   // Return all sessions
   const sessions = await prisma.session.findMany()
-  return NextResponse.json(sessions)
-}
-
-// Get all user sessions
-export async function GETACTIVE()  {
-
-  // Validate user
-  const { userId } = auth()
-  if (!userId) {
-    return new Response("Unauthorized access detected", {
-      status: 401
-      })
-  }
-  
-  // Return all sessions with cooresponding userId
-  const sessions = await prisma.user.findMany({
-    where: { id: userId },
-    select: {
-      sessions: true
-    }
-  })
-  return NextResponse.json(sessions)
-}
-
-// Get only user-created sessions 
-export async function GETCREATED()  {
-
-  // Validate user
-  const { userId } = auth()
-  if (!userId) {
-    return new Response("Unauthorized access detected", {
-      status: 401
-      })
-  }
-  
-  // Return all sessions created by user
-  const sessions = await prisma.session.findMany({
-    where: { createdBy: userId }
-  })
   return NextResponse.json(sessions)
 }
 
@@ -82,14 +43,18 @@ export async function POST(req: Request) {
   })
 
   // Update User sessions with Session
-  await prisma.user.update({
-    where: {
-      id: userId
-    },
-    data: {
-      sessions: {connect: { id: session.id }}
-    }
-  })
+  try {
+    await prisma.user.update({
+      where: {
+        id: userId
+      },
+      data: {
+        sessions: {connect: { id: session.id }}
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  } 
 
   return new NextResponse(JSON.stringify(session), {status : 201})
 }

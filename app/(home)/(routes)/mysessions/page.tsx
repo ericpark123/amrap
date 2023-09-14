@@ -1,13 +1,11 @@
 import { CreateSessionDialog } from "@/app/(components)/ui/custom/session/create-session-dialog"
-import { DeleteSession } from "@/app/(components)/ui/custom/session/delete-session-dialog"
+import { DeleteSessionDialog } from "@/app/(components)/ui/custom/session/delete-session-dialog"
 import { EditSessionDialog } from "@/app/(components)/ui/custom/session/edit-session-dialog"
-import { Button } from "@/app/(components)/ui/shadcn/button"
-import { Pencil, X } from "lucide-react"
 
 async function getSessions() {
-    const response = await import("@/app/api/sessions/route")
-    return await ((await response.GETCREATED()).json())
-  }
+  const response = await import("@/app/api/sessions/created/route")
+  return await ((await response.GET()).json())
+}
 
 export default async function MySessions() {
   const sessions = await getSessions()
@@ -24,12 +22,12 @@ export default async function MySessions() {
       <div dir="ltr" data-orientation="horizontal" className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {sessions?.map((session: any) => (
-            <div className="rounded-xl border bg-card text-card-foreground shadow" key={session.id}>
+            <div className="rounded-xl border bg-primary-foreground text-background shadow" key={session.id}>
               <div className="flex justify-end px-2 py-2">
                 <EditSessionDialog {...session}/>
-                <DeleteSession {...session}/>
+                <DeleteSessionDialog {...session}/>
               </div>
-              <div className="px-8 pb-8 flex flex-row items-center justify-between">   
+              <div className="px-10 pb-10 flex flex-row items-center justify-between">   
                 <div className="flex items-center">
                   <li key={session.id} className="list-none" >
                     <h3 className="tracking-tight text-large font-bold">

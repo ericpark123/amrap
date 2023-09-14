@@ -91,25 +91,20 @@ export function EditSessionDialog(session: any) {
         mode: "onChange",
     })
     
-    const updateSession = async(data: SessionFormValues) => {
-        try {
-            fetch(`/api/sessions/${sessionId}`, {
-                method: "PUT",
-                body: JSON.stringify(data),
-                //@ts-ignore
-                'content-type': 'application/json'
-            })
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
-    async function onSubmit(data: SessionFormValues) {
-        updateSession(data)
-        setOpen(false)
-        router.refresh()
-    }
+  const updateSession = async(data: SessionFormValues) => {
+    fetch(`/api/sessions/${sessionId}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      //@ts-ignore
+      'content-type': 'application/json'
+    }).then((res) => {
+      console.log(res)
+      setOpen(false)
+      router.refresh()
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
     
   return (
     <div>
@@ -128,7 +123,7 @@ export function EditSessionDialog(session: any) {
           </DialogHeader>
             <div className="grid items-center gap-4">
               <Form {...form} >
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(updateSession)} className="space-y-4">
                   <FormField
                     control={form.control}
                     name="title"

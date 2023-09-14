@@ -1,4 +1,5 @@
 "use client"
+
 import { X } from "lucide-react"
 import {
     AlertDialog,
@@ -14,28 +15,22 @@ import {
   import { Button } from "../../shadcn/button"
 import { useRouter } from "next/navigation"
    
-  export function DeleteSession(session: any) {
-    const sessionId = session.id
-    const router = useRouter()
+export function DeleteSessionDialog(session: any) {
+  const router = useRouter()
+  const sessionId = session.id
 
-    const deleteSession = async() => {
-        try {
-            fetch(`/api/sessions/${sessionId}`, {
-                method: "DELETE",
-                //@ts-ignore
-                'content-type': 'application/json'
-            })
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
-    async function handleSubmit() {
-        deleteSession()
-        router.refresh()
-    }
-    
+  const deleteSession = async () => {
+    fetch(`/api/sessions/${sessionId}`, {
+      method: "DELETE",
+      //@ts-ignore
+      'content-type': 'application/json'
+    }).then((res) => {
+      console.log(res)
+      router.refresh()
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
 
     return (
       <AlertDialog>
@@ -54,7 +49,7 @@ import { useRouter } from "next/navigation"
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleSubmit}>Confirm</AlertDialogAction>
+            <AlertDialogAction onClick={deleteSession}>Confirm</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
