@@ -14,7 +14,6 @@ import {
   } from "../../shadcn/alert-dialog"
 import { Button } from "../../shadcn/button"
 import { useRouter } from "next/navigation"
-import { prisma } from "@/lib/db"
 
 export function JoinSessionDialog(session: any) {
     const sessionId = session.id

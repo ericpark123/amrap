@@ -95,6 +95,13 @@ export function Navbar (){
                             </ul>
                           </NavigationMenuContent>
                         </NavigationMenuItem>
+                        <NavigationMenuItem>
+                          <Link href="/locator" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                              Locator
+                            </NavigationMenuLink>
+                          </Link>
+                        </NavigationMenuItem>
                         <NavigationMenuIndicator className="NavigationMenuIndicator" />
                       </NavigationMenuList>
                     </NavigationMenu>
