@@ -20,7 +20,6 @@ model Session {
   id           String   @id @default(uuid())
   title        String
   description  String?  @db.VarChar(255)
-  location     String
   date         DateTime
   skill        String
   createdAt    DateTime @default(now())

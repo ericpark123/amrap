@@ -1,3 +1,5 @@
+"use client"
+
 import { SelectedGymContext } from '@/app/context/SelectedGymContext'
 import React, { useContext, useRef } from 'react'
 import GymItem from './gym-item'
@@ -25,8 +27,8 @@ function GymList({gymList}: any) {
         </svg>
     <div className='flex overflow-scroll overflow-x-auto gap-4
     scrollbar-hide scroll-smooth' ref={elementRef}>
-        {gymList.map((item: any, index: any) => index<=7&&(
-            <div key={index} onClick={()=>selectedGym!.setSelectedGym(item)}>
+        {gymList?.map((item: any, index: any) => index<=7&&(
+            <div key={index} onClick={()=>selectedGym?.setSelectedGym(item)}>
                 <GymItem gym={item} />
             </div>
         ))}

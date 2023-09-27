@@ -3,8 +3,9 @@
 import React, { useContext } from 'react'
 import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api'
 import { UserLocationContext } from '@/app/context/UserLocationContext'
+import GymMarkers from './gym-markers'
 
-export function GoogleMapsView() {
+export function GoogleMapsView({gymList} : any) {
     const currentUser = useContext(UserLocationContext)
 
     let GOOGLE_MAPS_API_KEY: string
@@ -34,6 +35,9 @@ export function GoogleMapsView() {
                     <MarkerF
                         position={currentUser!.userLocation}
                     />
+                    {gymList.map((item: any, index: any) => index<=7&&(
+                        <GymMarkers gym={item} key={index}/>
+                    ))}      
                 </GoogleMap>
             </LoadScript>
         </div>
