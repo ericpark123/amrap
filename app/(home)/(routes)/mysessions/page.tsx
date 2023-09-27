@@ -8,6 +8,7 @@ async function getSessions() {
 }
 
 export default async function MySessions() {
+  
   const sessions = await getSessions()
 
   return (
