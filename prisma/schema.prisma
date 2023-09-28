@@ -13,6 +13,7 @@ model User {
   name        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  location    String
   sessions    Session[] @relation("SessionToUser")
 }
 
@@ -22,6 +23,7 @@ model Session {
   description  String?  @db.VarChar(255)
   date         DateTime
   skill        String
+  location     String
   createdAt    DateTime @default(now())
   createdBy    String
   participants User[]   @relation("SessionToUser")

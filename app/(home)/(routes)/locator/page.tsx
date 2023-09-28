@@ -8,7 +8,7 @@ import { SelectedGymContext } from "@/app/context/SelectedGymContext"
 
 export default function Locator() {
     const [userLocation, setUserLocation]= useState({lat: 0, lng: 0})
-    const [selectedGym, setSelectedGym]= useState({lat: 0, lng: 0})
+    const [selectedGym, setSelectedGym]= useState({})
     const [gymList, setGymList]= useState([])
 
     const getUserLocation = () => {

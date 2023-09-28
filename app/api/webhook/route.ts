@@ -59,6 +59,7 @@ export async function POST(req: Request) {
         create: {
             id: id as string,
             name: attributes.first_name,
+            location: '',
             sessions : {
               create: []
             }

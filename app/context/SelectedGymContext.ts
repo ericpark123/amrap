@@ -1,8 +1,8 @@
 import { createContext } from "react"
 
 interface SelectedGymContextType {
-    selectedGym: google.maps.LatLngLiteral,
-    setSelectedGym: React.Dispatch<React.SetStateAction<google.maps.LatLngLiteral>>
+    selectedGym: {},
+    setSelectedGym: React.Dispatch<React.SetStateAction<{}>>
 }
 
 export const SelectedGymContext = createContext<SelectedGymContextType | null>(null)
