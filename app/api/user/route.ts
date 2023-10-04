@@ -2,7 +2,7 @@ import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 
-// Join session as participant
+// Update user location
 export async function PUT(req: Request)  {
 
   // Validate user
@@ -13,7 +13,7 @@ export async function PUT(req: Request)  {
       })
   }
   
-  // Join session
+  // Update location
   const location = await req.json()
   try {
     await prisma.user.update({

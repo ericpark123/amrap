@@ -14,6 +14,5 @@ export async function GET(){
     }
     )
     const result = await res.json()
-
     return NextResponse.json({ result })
 }

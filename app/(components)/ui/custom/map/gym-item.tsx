@@ -4,7 +4,8 @@ import { UserLocationContext } from "@/app/context/UserLocationContext"
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 import { Button } from "../../shadcn/button"
-import { Compass, Plus } from "lucide-react"
+import { Compass, Newspaper } from "lucide-react"
+import Link from "next/link"
 
 function GymItem({gym, showDir=false} : any) {
   const GOOGLE_API_KEY=process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
@@ -44,25 +45,25 @@ function GymItem({gym, showDir=false} : any) {
     return distance.toFixed(2); // Return the distance with 2 decimal places
   }
  
-  const onDirectionClick=()=>{
+  const onDirectionClick = () => {
     window.open('https://www.google.com/maps/dir/?api=1&origin='+
     currentUser!.userLocation.lat+','+currentUser!.userLocation.lng+'&destination='
     +gym?.geometry.location.lat
     +','+gym?.geometry.location.lng+'&travelmode=driving')
   }
 
-  function onSelectClick(data: any) {
-    fetch('/api/user', {
-      method: "POST",
-      body: JSON.stringify(data),
-      //@ts-ignore
-      'content-type': 'application/json'
-    }).then((res) => {
-      console.log(res)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
+  // const updateLocation = async (data: string) => {
+  //   fetch('/api/user', {
+  //     method: "PUT",
+  //     body: JSON.stringify(data),
+  //     //@ts-ignore
+  //     'content-type': 'application/json'
+  //   }).then((res) => {
+  //     console.log(res)
+  //   }).catch((error) => {
+  //     console.log(error)
+  //   })
+  // }
 
     return (
     <div className='w-[195px] flex-shrink-0 p-2 rounded-lg shadow-md mb-1 bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>
@@ -92,7 +93,11 @@ function GymItem({gym, showDir=false} : any) {
             <Button size={'xs'} variant={'ghost'} onClick={()=>onDirectionClick()} ><Compass size={16} strokeWidth={1} /></Button>
           </div>
           <div className=' text-secondary-foreground font-thin'>
-            <Button size={'xs'} variant={'ghost'} onClick={()=>onSelectClick(gym?.reference)} ><Plus size={16} strokeWidth={1} /></Button>
+            <Link href={`/locator/${gym?.reference}`}>
+              <Button size={'xs'} variant={'ghost'}>
+                <Newspaper size={16} strokeWidth={1} />
+              </Button>
+            </Link>
             </div>
           </div>
         :null}

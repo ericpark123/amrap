@@ -11,7 +11,14 @@ export async function GET()  {
         status: 401
         })
     }
-    
+    const userLocation = await prisma.user.findFirst({
+      where: {
+        id: userId
+      },
+      select: {
+        location: true
+      }
+    })
     // Return all sessions not created by user
     const sessions = await prisma.session.findMany({
       where: {

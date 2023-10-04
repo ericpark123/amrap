@@ -1,20 +1,21 @@
-import { DeleteSessionDialog } from "@/app/(components)/ui/custom/session/delete-session-dialog"
-import { EditSessionDialog } from "@/app/(components)/ui/custom/session/edit-session-dialog"
+"use client"
 
-async function getSessions() {
-  const response = await import("@/app/api/sessions/created/route")
-  return await ((await response.GET()).json())
-}
+import { CreateSessionDialog } from "@/app/(components)/ui/custom/session/create-session-dialog"
+import { JoinSessionDialog } from "@/app/(components)/ui/custom/session/join-session-dialog"
 
-export default async function MySessions() {
-  const sessions = await getSessions()
+export default async function GymFeed({ params }: { params: { id: string } }) {
+
+  const sessions = 
+    await fetch(`/api/sessions/${params.id}`)
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
 
   return (
     <main className="container relative">
       <div className="flex-1 space-y-4 p-8 pt-4">
         <div className="flex items-center justify-center space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">
-            My Sessions
+            Open Sessions
           </h2>
         </div>
       </div>
@@ -23,8 +24,7 @@ export default async function MySessions() {
           {sessions?.map((session: any) => (
             <div className="rounded-xl border bg-primary-foreground text-background shadow" key={session.id}>
               <div className="flex justify-end px-2 py-2">
-                <EditSessionDialog {...session}/>
-                <DeleteSessionDialog {...session}/>
+                <JoinSessionDialog {...session}/>
               </div>
               <div className="px-10 pb-10 flex flex-row items-center justify-between">   
                 <div className="flex items-center">
@@ -48,6 +48,9 @@ export default async function MySessions() {
           ))}      
         </div>
       </div>
+      <div className="flex items-center justify-center mt-12">
+        <CreateSessionDialog />
+      </div>  
     </main>
   )
-}
+  }

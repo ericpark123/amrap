@@ -1,36 +1,25 @@
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
     navigationMenuTriggerStyle,
   } from "../../shadcn/navigation-menu"
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../shadcn/tooltip"
 
 import Link from 'next/link'
 import { Button } from "../../shadcn/button"
 import { useState } from "react"
-import { AlertCircleIcon, AlignJustify, Bell, X } from "lucide-react"
+import { AlignJustify, Bell, Globe2, Newspaper, X } from "lucide-react"
 import { UserButton } from "@clerk/nextjs"
 import React from 'react'
-import { cn } from "@/lib/utils"
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "My Sessions",
-    href: "/mysessions",
-    description:
-      "View, create, edit and delete all your sessions!",
-  },
-  {
-    title: "Open Sessions",
-    href: "/opensessions",
-    description:
-      "Join sessions created by other users!",
-  },
-]
 
 export function Navbar (){
 
@@ -79,65 +68,47 @@ export function Navbar (){
                           </NavigationMenuLink>
                         </Link>
                       </NavigationMenuItem>
-                        <NavigationMenuItem>
-                          <NavigationMenuTrigger>Sessions</NavigationMenuTrigger>
-                          <NavigationMenuContent>
-                            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                              {components.map((component) => (
-                                <ListItem
-                                  key={component.title}
-                                  title={component.title}
-                                  href={component.href}
-                                >
-                                  {component.description}
-                                </ListItem>
-                              ))}
-                            </ul>
-                          </NavigationMenuContent>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>
-                          <Link href="/locator" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                              Locator
-                            </NavigationMenuLink>
-                          </Link>
-                        </NavigationMenuItem>
-                        <NavigationMenuIndicator className="NavigationMenuIndicator" />
+                       <NavigationMenuIndicator className="NavigationMenuIndicator" />
                       </NavigationMenuList>
                     </NavigationMenu>
                   </nav>
-                </div> 
-              <div className ="flex flex-1 items-center space-x-6 justify-end">
-                <Bell className="hover:text-accent"/>
-                <UserButton afterSignOutUrl="/"/>
-              </div>
+                </div>
+                  <div className ="flex-1 items-center space-x-6 justify-end hidden lg:flex">
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Link href="/mysessions">
+                            <Newspaper aria-label="My Sessions"  className="hover:text-accent" />
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p> My Sessions </p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Link href="/locator">
+                            <Globe2 className="hover:text-accent" />
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p> View Sessions </p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Link href="/locator">
+                            <Bell className="hover:text-accent"/>
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p> Notifications </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>      
+                    <UserButton afterSignOutUrl="/"/>
+                </div>
             </div>
         </header>
     )
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  )
-})
-ListItem.displayName = "ListItem"
