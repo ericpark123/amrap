@@ -64,6 +64,9 @@ const sessionformSchema = z.object({
     })
     .min(1, {
       message: "Skill level must be chosen",
+    }),
+    location: z.string({
+      required_error: "Location is required",
     })
   })
 
@@ -73,10 +76,11 @@ const defaultValues: Partial<SessionFormValues> = {
     title: "",
     description: "",
     dateTime: new Date(),
-    skill: "",  
+    skill: "",
+    location: ""
 }
 
-export function CreateSessionDialog() {
+export function CreateSessionDialog(gymRef: any) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
 
@@ -101,6 +105,7 @@ export function CreateSessionDialog() {
   }
  
   async function onSubmit(data: SessionFormValues) {
+    data.location = gymRef.id
     postSession(data)
     setOpen(false)
   }

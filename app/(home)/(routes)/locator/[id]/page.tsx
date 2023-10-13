@@ -1,14 +1,9 @@
-"use client"
-
 import { CreateSessionDialog } from "@/app/(components)/ui/custom/session/create-session-dialog"
 import { JoinSessionDialog } from "@/app/(components)/ui/custom/session/join-session-dialog"
+import getSessions from "@/lib/getSessions"
 
 export default async function GymFeed({ params }: { params: { id: string } }) {
-
-  const sessions = 
-    await fetch(`/api/sessions/${params.id}`)
-    .then((res) => res.json())
-    .catch((error) => console.log(error))
+  const sessions = await getSessions(params.id)
 
   return (
     <main className="container relative">
@@ -49,7 +44,7 @@ export default async function GymFeed({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="flex items-center justify-center mt-12">
-        <CreateSessionDialog />
+        <CreateSessionDialog {...params} />
       </div>  
     </main>
   )

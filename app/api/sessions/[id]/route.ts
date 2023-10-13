@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs'
+import getSessions from '@/lib/getSessions'
 
 // Get sessions based on location
 export async function GET(req: Request)  {
@@ -15,12 +16,13 @@ export async function GET(req: Request)  {
 
   const id = req.url.split("sessions/")[1]
   // Return all sessions
-  const sessions = await prisma.session.findMany({
-      where: {
-        location: id,
-      },
-    })
+  try {
+    const sessions = await getSessions(id)
     return NextResponse.json(sessions)
+  }
+  catch (error) {
+    console.log(error)
+  }
 }
 
 // Remove session only if created by the user

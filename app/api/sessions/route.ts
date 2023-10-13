@@ -28,17 +28,7 @@ export async function POST(req: Request) {
   }
   
   // Deconstruct values from request
-  const {title, description, dateTime, skill} = await req.json()
-  const user = await prisma.user.findFirst({
-    where: {
-      id: userId,  
-    }
-  })
-  const location = user!.location
-  if (!location) {
-    return new Response("Please designate a gym location in locator")
-  }
-
+  const {title, description, dateTime, skill, location} = await req.json()
 
   // Create new session and add User as a participant
   const session = await prisma.session.create({
