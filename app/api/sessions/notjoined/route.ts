@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { auth } from '@clerk/nextjs'
 
-export async function GET()  {
+export async function GET(id: any)  {
 
     // Validate user
     const { userId } = auth()
@@ -11,17 +11,11 @@ export async function GET()  {
         status: 401
         })
     }
-    const userLocation = await prisma.user.findFirst({
-      where: {
-        id: userId
-      },
-      select: {
-        location: true
-      }
-    })
+
     // Return all sessions not created by user
     const sessions = await prisma.session.findMany({
       where: {
+        locationId: id,
         NOT: {
           participants: {
             some: {

@@ -1,14 +1,28 @@
 import { DeleteSessionDialog } from "@/app/(components)/ui/custom/session/delete-session-dialog"
 import { EditSessionDialog } from "@/app/(components)/ui/custom/session/edit-session-dialog"
+import { prisma } from "@/lib/db"
 
 async function getSessions() {
   const response = await import("@/app/api/sessions/created/route")
   return await ((await response.GET()).json())
 }
 
+async function getLocation(id: any){
+  try {
+    const location = await prisma.location.findUnique({
+      where: {
+          id: id
+      }
+      })
+    return location
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default async function MySessions() {
   const sessions = await getSessions()
-
+ 
   return (
     <main className="container relative">
       <div className="flex-1 space-y-4 p-8 pt-4">
@@ -20,7 +34,7 @@ export default async function MySessions() {
       </div>
       <div dir="ltr" data-orientation="horizontal" className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {sessions?.map((session: any) => (
+          {sessions?.map(async (session: any) => (
             <div className="rounded-xl border bg-primary-foreground text-background shadow" key={session.id}>
               <div className="flex justify-end px-2 py-2">
                 <EditSessionDialog {...session}/>
@@ -37,7 +51,13 @@ export default async function MySessions() {
                     </p> 
                     <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {session.skill}
-                    </p> 
+                    </p>
+                    <p className="tracking-tight text-xs text-muted-foreground font-small">
+                      {(await getLocation(session.locationId))?.name}
+                    </p>  
+                    <p className="tracking-tight text-xs text-muted-foreground font-small">
+                      {(await getLocation(session.locationId))?.address}
+                    </p>  
                     <p className="tracking-tight text-xs text-muted-foreground font-small">
                       {new Date(session.date).toLocaleString()}
                     </p> 

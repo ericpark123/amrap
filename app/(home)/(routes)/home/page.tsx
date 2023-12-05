@@ -1,6 +1,6 @@
 async function getSessions() {
-    const response = await import("@/app/api/sessions/all/route")
-    return await ((await response.GET()).json())
+  const response = await import("@/app/api/sessions/all/route")
+  return await ((await response.GET()).json())
 }
 
 export default async function Home() {
@@ -29,7 +29,10 @@ export default async function Home() {
                           </p> 
                           <p className="tracking-tight text-xs text-muted-foreground font-small">
                             {session.skill}
-                          </p> 
+                          </p>
+                          <p className="tracking-tight text-xs text-muted-foreground font-small">
+                            {session.location}
+                          </p>  
                           <p className="tracking-tight text-xs text-muted-foreground font-small">
                             {new Date(session.date).toLocaleString()}
                           </p> 

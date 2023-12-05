@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs'
 import { prisma } from '@/lib/db'
 
-// Get all sessions
-export async function GET()  {
+// Get session
+export async function GET(req: Request)  {
 
   // Validate user
   const { userId } = auth()
@@ -12,7 +12,7 @@ export async function GET()  {
        status: 401
        });
   }
-
+  
   // Return all sessions
   const sessions = await prisma.session.findMany()
   return NextResponse.json(sessions)
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
         description: description,
         date: dateTime,
         skill: skill,
-        location: location,
+        locationId: location,
         createdBy: userId,
         participants: {connect: { id: userId }}
       }

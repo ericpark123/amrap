@@ -20,7 +20,25 @@ function GymItem({gym, showDir=false} : any) {
       currentUser!.userLocation.lat,
       currentUser!.userLocation.lng
     )
+    postLocation({
+      "id": gym?.reference,
+      "name": gym?.name,
+      "address": gym?.formatted_address,}
+    )
   },[])
+
+  const postLocation = async(data: any) => {
+    fetch('/api/location', {
+      method: "POST",
+      body: JSON.stringify(data),
+      //@ts-ignore
+      'content-type': 'application/json'
+    }).then((res) => {
+      console.log(res)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
     
@@ -52,19 +70,6 @@ function GymItem({gym, showDir=false} : any) {
     +','+gym?.geometry.location.lng+'&travelmode=driving')
   }
 
-  // const updateLocation = async (data: string) => {
-  //   fetch('/api/user', {
-  //     method: "PUT",
-  //     body: JSON.stringify(data),
-  //     //@ts-ignore
-  //     'content-type': 'application/json'
-  //   }).then((res) => {
-  //     console.log(res)
-  //   }).catch((error) => {
-  //     console.log(error)
-  //   })
-  // }
-
     return (
     <div className='w-[195px] flex-shrink-0 p-2 rounded-lg shadow-md mb-1 bg-white hover:scale-110 transition-all mt-[20px] cursor-pointer'>
       <Image src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=${GOOGLE_API_KEY}`} alt={gym?.name} width={180} height={80} className='rounded-lg object-cover h-[90px] '/>
@@ -93,9 +98,9 @@ function GymItem({gym, showDir=false} : any) {
             <Button size={'xs'} variant={'ghost'} onClick={()=>onDirectionClick()} ><Compass size={16} strokeWidth={1} /></Button>
           </div>
           <div className=' text-secondary-foreground font-thin'>
-            <Link href={`/locator/${gym?.reference}`}>
+            <Link href={`/locator/${gym?.place_id}`}>
               <Button size={'xs'} variant={'ghost'}>
-                <Newspaper size={16} strokeWidth={1} />
+                <Newspaper size={16} strokeWidth={1}/>
               </Button>
             </Link>
             </div>

@@ -1,9 +1,4 @@
-import { prisma } from '@/lib/db';
-
 export default async function getSessions(id: any) {
-  return await prisma.session.findMany({
-    where: {
-      location: id,
-    },
-  })
+  const response = await import("@/app/api/sessions/notjoined/route")
+  return await ((await response.GET(id)).json())
 }

@@ -22,9 +22,16 @@ model Session {
   description  String?  @db.VarChar(255)
   date         DateTime
   skill        String
-  location     String
   createdAt    DateTime @default(now())
   createdBy    String
   participants User[]   @relation("SessionToUser")
+  locationId   String   @unique
+  location     Location @relation(fields: [locationId], references: [id])
 }
 
+model Location {
+  id          String  @id
+  sessions    Session[]
+  name        String
+  address     String
+}

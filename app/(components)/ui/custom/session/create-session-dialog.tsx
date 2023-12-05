@@ -103,7 +103,7 @@ export function CreateSessionDialog(gymRef: any) {
       console.log(error)
     })
   }
- 
+   
   async function onSubmit(data: SessionFormValues) {
     data.location = gymRef.id
     postSession(data)
