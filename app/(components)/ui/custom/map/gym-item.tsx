@@ -23,7 +23,7 @@ function GymItem({gym, showDir=false} : any) {
     postLocation({
       "id": gym?.reference,
       "name": gym?.name,
-      "address": gym?.formatted_address,}
+      "address": gym?.formatted_address}
     )
   },[])
 
