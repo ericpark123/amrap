@@ -75,7 +75,7 @@ type SessionFormValues = z.infer<typeof sessionformSchema>
 const defaultValues: Partial<SessionFormValues> = {
     title: "",
     description: "",
-    dateTime: new Date(),
+    dateTime: new Date(new Date().toLocaleString()),
     skill: "",
     location: ""
 }
@@ -168,11 +168,11 @@ export function CreateSessionDialog(gymRef: any) {
                         onBlur={field.onBlur}
                         value={
                           !!field.value
-                            ? parseAbsolute(field.value.toISOString(), "GMT")
+                            ? parseAbsolute(field.value.toISOString(), "PST")
                             : null
                         }
                         onChange={(date) => {
-                          field.onChange(!!date ? date.toDate("GMT") : new Date());
+                          field.onChange(!!date ? date.toDate("PST") : new Date());
                         }}
                         granularity="minute"
                         />

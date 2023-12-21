@@ -20,6 +20,7 @@ import { useState } from "react"
 import { AlignJustify, Bell, Globe2, Newspaper, X } from "lucide-react"
 import { UserButton } from "@clerk/nextjs"
 import React from 'react'
+import Image from 'next/image'
 
 export function Navbar (){
 
@@ -51,7 +52,7 @@ export function Navbar (){
                         <Link onClick={() => setShowMobileNav(!showMobileNav)}  href="/mysessions">My Sessions</Link>
                       </div>
                       <div className="flex justify-center py-10">
-                        <Link onClick={() => setShowMobileNav(!showMobileNav)} href="/sessions">Feed</Link>
+                        <Link onClick={() => setShowMobileNav(!showMobileNav)} href="/locator">Locator</Link>
                       </div>
                     </div>
                   </div>
@@ -63,9 +64,15 @@ export function Navbar (){
                     <NavigationMenuList>
                       <NavigationMenuItem>
                         <Link href="/home" legacyBehavior passHref>
-                          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            AMRAP
-                          </NavigationMenuLink>
+                          <Image
+                            src="/amrap_logo_part.png"
+                            priority
+                            height={0}
+                            width={0}
+                            style={{width:'100px', height: "auto" }}
+                            alt="AMRAP logo"
+                            className="cursor-pointer"
+                          />
                         </Link>
                       </NavigationMenuItem>
                        <NavigationMenuIndicator className="NavigationMenuIndicator" />
@@ -93,16 +100,6 @@ export function Navbar (){
                         </TooltipTrigger>
                         <TooltipContent>
                           <p> View Sessions </p>
-                        </TooltipContent>
-                      </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Link href="/locator">
-                            <Bell className="hover:text-accent"/>
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p> Notifications </p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>      

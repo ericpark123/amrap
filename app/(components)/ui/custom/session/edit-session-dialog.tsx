@@ -166,11 +166,11 @@ export function EditSessionDialog(session: any) {
                         onBlur={field.onBlur}
                         value={
                           !!field.value
-                            ? parseAbsolute(field.value.toISOString(), "GMT")
+                            ? parseAbsolute(field.value.toISOString(), "PST")
                             : null
                         }
                         onChange={(date) => {
-                          field.onChange(!!date ? date.toDate("GMT") : new Date());
+                          field.onChange(!!date ? date.toDate("PST") : new Date());
                         }}
                         granularity="minute"
                         />

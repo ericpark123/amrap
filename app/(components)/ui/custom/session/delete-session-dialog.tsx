@@ -49,7 +49,7 @@ export function DeleteSessionDialog(session: any) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={deleteSession}>Confirm</AlertDialogAction>
+            <AlertDialogAction className='text-background' onClick={deleteSession}>Confirm</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

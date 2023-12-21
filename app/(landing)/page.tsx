@@ -13,7 +13,9 @@ const LandingPage = () => {
       {
         isSignedIn ?
         <main className='flex items-center justify-center py-4'>
-          <Link href="/home">Welcome {user.firstName}</Link>
+          <Button variant={'ghost'}>
+            <Link href="/home">Welcome {user.firstName}</Link>
+          </Button>
         </main>:
         (
             <main className='rounded-lg border-solid border-2 py-10 px-10 border-background bg-white shadow-lg'>
