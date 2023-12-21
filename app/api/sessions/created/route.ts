@@ -15,7 +15,10 @@ export async function GET()  {
     
     // Return all sessions created by user
     const sessions = await prisma.session.findMany({
-      where: { createdBy: userId }   
+      where: { 
+        createdBy: userId,
+        completed: false 
+       }   
     })
     return NextResponse.json(sessions)
   }

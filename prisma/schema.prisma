@@ -27,6 +27,7 @@ model Session {
   participants User[]   @relation("SessionToUser")
   locationId   String   @unique
   location     Location @relation(fields: [locationId], references: [id])
+  completed    Boolean @default(false)
 }
 
 model Location {

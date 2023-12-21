@@ -44,6 +44,7 @@ export default async function MySessions() {
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
           {sessions?.map(async (session: any) => (
             <div className="rounded-xl border bg-primary-foreground text-background shadow cursor-pointer hover:my-rotate-y-180 duration-1000 preserve-3d" key={session.id}>
+              
               <div className="backface-hidden">
                 <div className="px-10 py-10 flex flex-row items-center justify-between">
                   <div className="flex items-center">

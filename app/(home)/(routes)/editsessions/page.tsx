@@ -1,3 +1,4 @@
+import { CompleteSessionDialog } from "@/app/(components)/ui/custom/session/complete-session-dialog"
 import { DeleteSessionDialog } from "@/app/(components)/ui/custom/session/delete-session-dialog"
 import { EditSessionDialog } from "@/app/(components)/ui/custom/session/edit-session-dialog"
 import { Button } from "@/app/(components)/ui/shadcn/button"
@@ -47,6 +48,7 @@ export default async function EditSessions() {
             <div className="rounded-xl border bg-primary-foreground text-background shadow" key={session.id}>
               <div className="flex justify-end px-2 pt-2 pb-1.5">
                 <EditSessionDialog {...session}/>
+                <CompleteSessionDialog {...session}/>
                 <DeleteSessionDialog {...session}/>
               </div>
               <div className="px-10 pb-10 flex flex-row items-center justify-between">   
