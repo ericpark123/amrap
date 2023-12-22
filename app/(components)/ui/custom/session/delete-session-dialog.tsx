@@ -14,6 +14,7 @@ import {
   } from "../../shadcn/alert-dialog"
   import { Button } from "../../shadcn/button"
 import { useRouter } from "next/navigation"
+import { toast } from "../../shadcn/use-toast"
    
 export function DeleteSessionDialog(session: any) {
   const router = useRouter()
@@ -26,6 +27,9 @@ export function DeleteSessionDialog(session: any) {
       'content-type': 'application/json'
     }).then((res) => {
       console.log(res)
+      toast({
+        description: "Your session has been deleted"
+    })
       router.refresh()
     }).catch((error) => {
       console.log(error)

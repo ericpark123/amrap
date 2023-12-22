@@ -38,7 +38,7 @@ import {
 } from "../../shadcn/select"
 
 import { Button } from "../../shadcn/button"
-import { useToast } from "../../shadcn/use-toast"
+import { toast } from "../../shadcn/use-toast"
 import { useState } from "react"
 import { Pencil } from "lucide-react";
 
@@ -100,6 +100,9 @@ export function EditSessionDialog(session: any) {
     }).then((res) => {
       console.log(res)
       setOpen(false)
+      toast({
+        description: "Your session has been changed"
+    })
       router.refresh()
     }).catch((error) => {
       console.log(error)

@@ -39,6 +39,7 @@ import {
 
 import { Button } from "../../shadcn/button"
 import { useState } from "react"
+import { toast } from "../../shadcn/use-toast";
 
 const sessionformSchema = z.object({
     title: z.string({
@@ -107,6 +108,9 @@ export function CreateSessionDialog(gymRef: any) {
   async function onSubmit(data: SessionFormValues) {
     data.location = gymRef.id
     postSession(data)
+    toast({
+      description: "Your session has been created"
+    })
     setOpen(false)
   }
 

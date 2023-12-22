@@ -1,32 +1,27 @@
 import {
-    NavigationMenu,
-    NavigationMenuIndicator,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    navigationMenuTriggerStyle,
-  } from "../../shadcn/navigation-menu"
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "../../shadcn/navigation-menu"
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../../shadcn/tooltip"
+import * as React from "react"
 
 import Link from 'next/link'
 import { Button } from "../../shadcn/button"
 import { useState } from "react"
-import { AlignJustify, Bell, Globe2, Newspaper, X } from "lucide-react"
+import { AlignJustify, X } from "lucide-react"
 import { UserButton } from "@clerk/nextjs"
-import React from 'react'
 import Image from 'next/image'
 
 export function Navbar (){
-
     const [showMobileNav, setShowMobileNav] = useState(false);
+
     return (
-        <header className ="sticky top-0 z-50 w-full border-b bg-background">
+        <header className ="sticky top-0 z-50 w-full border-b bg-background shadow-lg">
             <div className ="container flex h-14 items-center">
               <section className="flex lg:hidden">
               <>
@@ -65,7 +60,7 @@ export function Navbar (){
                       <NavigationMenuItem>
                         <Link href="/home" legacyBehavior passHref>
                           <Image
-                            src="/amrap_logo_part.png"
+                            src="/amrap_logo.png"
                             priority
                             height={0}
                             width={0}
@@ -74,36 +69,63 @@ export function Navbar (){
                             className="cursor-pointer"
                           />
                         </Link>
-                      </NavigationMenuItem>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                          <NavigationMenuTrigger className="flex-1 items-center ml-12 py-4 hidden lg:flex focus:text-primary hover:text-primary font-light">SESSIONS</NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <li className="row-span-3">
+                              <NavigationMenuLink asChild>
+                                <a
+                                  className="flex h-full w-full select-none flex-col justify-end rounded-md bg-[url('/gym.jpeg')] bg-cover from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md hover:shadow-lg"
+                                  href="/sessionfeed"
+                                > 
+                                  <div className="text-small text-background shadow-lg outline-black ml-12">
+                                    Session Feed
+                                  </div>
+                                </a>
+                              </NavigationMenuLink>
+                            </li>
+                            <NavigationMenuLink href="/mysessions" title="My Sessions">
+                              <div className="flex flex-col pl-2 rounded-md hover:bg-gradient-to-b from-muted/50 p-6 to-muted no-underline outline-none focus:shadow-md transition-1000">
+                                <div className="text-md font-medium justify-start px-4">
+                                  My Sessions
+                                </div>
+                                <div className="text-xs leading-tight text-muted-foreground px-4">
+                                  View and edit your sessions
+                                </div>
+                             </div>
+                            </NavigationMenuLink>  
+                            <NavigationMenuLink href="/pastsessions" title="Past Sessions">
+                              <div className="flex flex-col pl-2 rounded-md hover:bg-gradient-to-b from-muted/50 p-6 to-muted no-underline outline-none focus:shadow-md transition-1000">
+                                <div className="text-md font-medium justify-start px-4">
+                                  Past Sessions
+                                </div>
+                                <div className="text-xs leading-tight text-muted-foreground px-4">
+                                  View your past sessions
+                                </div>
+                             </div>
+                            </NavigationMenuLink>  
+                            <NavigationMenuLink href="/locator" title="Join Sessions">
+                              <div className="flex flex-col pl-2 rounded-md hover:bg-gradient-to-b from-muted/50 p-6 to-muted no-underline outline-none focus:shadow-md transition-1000">
+                                <div className="text-md font-medium justify-start px-4">
+                                  Join Sessions
+                                </div>
+                                <div className="text-xs leading-tight text-muted-foreground px-4">
+                                  View and join sessions
+                                </div>
+                             </div>
+                            </NavigationMenuLink>  
+                            </ul>
+                          </NavigationMenuContent>
+                        </NavigationMenuItem>
                        <NavigationMenuIndicator className="NavigationMenuIndicator" />
                       </NavigationMenuList>
                     </NavigationMenu>
                   </nav>
-                </div>
-                  <div className ="flex-1 items-center space-x-6 justify-end hidden lg:flex">
-                    <TooltipProvider delayDuration={100}>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Link href="/mysessions">
-                            <Newspaper aria-label="My Sessions"  className="hover:text-accent" />
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p> My Sessions </p>
-                        </TooltipContent>
-                      </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Link href="/locator">
-                            <Globe2 className="hover:text-accent" />
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p> View Sessions </p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>      
-                    <UserButton afterSignOutUrl="/"/>
+                </div>  
+                <div className="absolute right-12">
+                  <UserButton afterSignOutUrl="/"/>
                 </div>
             </div>
         </header>

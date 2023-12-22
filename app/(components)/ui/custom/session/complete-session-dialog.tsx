@@ -14,6 +14,7 @@ import {
   } from "../../shadcn/alert-dialog"
   import { Button } from "../../shadcn/button"
 import { useRouter } from "next/navigation"
+import { toast } from "../../shadcn/use-toast"
    
 export function CompleteSessionDialog(session: any) {
   const router = useRouter()
@@ -26,11 +27,15 @@ export function CompleteSessionDialog(session: any) {
       'content-type': 'application/json'
     }).then((res) => {
       console.log(res)
+      toast({
+        description: "Your session has been marked as complete"
+      })
       router.refresh()
     }).catch((error) => {
       console.log(error)
     })
   }
+
 
     return (
       <AlertDialog>
@@ -43,7 +48,7 @@ export function CompleteSessionDialog(session: any) {
           <AlertDialogHeader>
             <AlertDialogTitle>Complete Session</AlertDialogTitle>
             <AlertDialogDescription>
-              By pressing 'Confirm' your session will be marked as complete.
+              By pressing &apos;Confirm&apos; your session will be marked as complete.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

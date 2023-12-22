@@ -36,7 +36,7 @@ const LandingPage = () => {
                   <Button className='text-background shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign in with Clerk</Button>
                 </SignInButton>
                 <SignUpButton>
-                  <Button className='bg-white border-2 border-foreground text-background shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign up</Button>
+                  <Button className='bg-white border-2 border-foreground text-primary shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign up</Button>
                 </SignUpButton>
               </div>
             </main>    

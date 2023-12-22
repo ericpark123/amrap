@@ -14,6 +14,7 @@ import {
   } from "../../shadcn/alert-dialog"
 import { Button } from "../../shadcn/button"
 import { useRouter } from "next/navigation"
+import { toast } from "../../shadcn/use-toast"
 
 export function JoinSessionDialog(session: any) {
     const sessionId = session.id
@@ -28,6 +29,9 @@ export function JoinSessionDialog(session: any) {
             }     
         }).then((res) => {
             console.log(res)
+            toast({
+                description: "You have joined the session"
+            })
             router.refresh()
         }).catch((error) => {
             console.log(error)
