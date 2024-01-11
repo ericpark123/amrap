@@ -45,7 +45,7 @@ export default async function EditSessions() {
       <div dir="ltr" data-orientation="horizontal" className="space-y-4">
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
           {sessions?.map(async (session: any) => (
-            <div className="rounded-xl border bg-primary-foreground text-background shadow" key={session.id}>
+            <div className="rounded-xl border bg-primary-foreground text-primary shadow" key={session.id}>
               <div className="flex justify-end px-2 pt-2 pb-1.5">
                 <EditSessionDialog {...session}/>
                 <CompleteSessionDialog {...session}/>

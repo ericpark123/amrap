@@ -16,12 +16,12 @@ export async function GET()  {
     // Return all sessions with cooresponding userId
     const sessions = await prisma.session.findMany({
       where: {
+        completed: true,
         participants: {
           some: {
             id: userId
           }
-        },  
-        completed: false
+        }  
       }
     })
     return NextResponse.json(sessions)

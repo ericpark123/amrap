@@ -113,7 +113,7 @@ function CalendarCell({ state, date }: CalendarCellProps) {
 					"h-9 w-9",
 					isToday ? "bg-accent text-accent-foreground" : "",
 					isSelected
-						? "bg-primary text-accent-foreground hover:bg-primary hover:text-primary-foreground focus:bg-secondary focus:text-accent-foreground"
+						? "bg-secondary text-accent-foreground hover:bg-secondary hover:text-primary-foreground focus:bg-secondary focus:text-accent-foreground"
 						: "",
 					isOutsideVisibleRange ? "text-muted-foreground opacity-50" : "",
 					isDisabled ? "text-muted-foreground opacity-50" : "",

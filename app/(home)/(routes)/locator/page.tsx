@@ -19,11 +19,10 @@ export default function Locator() {
             })
         })
     }
-    useEffect(() => {
-        getUserLocation();
-    },[])
+
     
     useEffect(() => {
+        getUserLocation();
         fetch('/api/google-places', {
             method: "GET",
             //@ts-ignore
@@ -42,8 +41,12 @@ export default function Locator() {
         <div className="container relative">
             <SelectedGymContext.Provider value={{selectedGym, setSelectedGym}}>
             <UserLocationContext.Provider value={{userLocation, setUserLocation}}>
-                <GoogleMapsView gymList={gymList}/>
-                <GymList gymList={gymList}/>
+                <div className="col-span-3">
+                    <GoogleMapsView gymList={gymList}/>
+                    <div className="md:absolute mx-2 w-[100%] md:w-[91%] bottom-36 relative md:bottom-3">
+                        <GymList gymList={gymList}/>
+                    </div>
+                </div>
             </UserLocationContext.Provider>
             </SelectedGymContext.Provider>
         </div>

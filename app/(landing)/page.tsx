@@ -33,10 +33,10 @@ const LandingPage = () => {
               </h2>
               <div className='grid items-center justify-center'>
                 <SignInButton>
-                  <Button className='text-background shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign in with Clerk</Button>
+                  <Button className='transition ease-in-out delay-150 hover:scale-105 duration-300 text-background shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign in with Clerk</Button>
                 </SignInButton>
                 <SignUpButton>
-                  <Button className='bg-white border-2 border-foreground text-primary shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign up</Button>
+                  <Button className='transition ease-in-out delay-150 hover:scale-105 duration-300 bg-white border-2 border-foreground text-primary shadow-sm rounded-full px-24 py-2 mt-3' variant={'default'}>Sign up</Button>
                 </SignUpButton>
               </div>
             </main>    

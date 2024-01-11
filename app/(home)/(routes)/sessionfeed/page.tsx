@@ -41,7 +41,7 @@ export default async function SessionFeed() {
       <div dir="ltr" data-orientation="horizontal" className="space-y-4">
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
           {sessions?.map(async (session: any) => (
-            <div className="rounded-xl border bg-background text-foreground shadow cursor-pointer hover:my-rotate-y-180 duration-1000 preserve-3d" key={session.id}>
+            <div className="rounded-xl border bg-background text-primary shadow cursor-pointer hover:my-rotate-y-180 duration-1000 preserve-3d" key={session.id}>
               <div className="backface-hidden">
                 <div className="px-10 py-10 flex flex-row items-center justify-between">
                   <div className="flex items-center">

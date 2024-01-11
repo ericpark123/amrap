@@ -25,7 +25,7 @@ model Session {
   createdAt    DateTime @default(now())
   createdBy    String
   participants User[]   @relation("SessionToUser")
-  locationId   String   @unique
+  locationId   String
   location     Location @relation(fields: [locationId], references: [id])
   completed    Boolean  @default(false)
 }

@@ -92,5 +92,5 @@ module.exports = {
       },
     },
   },
-  plugins: [Myclass, require("tailwindcss-animate")],
+  plugins: [Myclass, require("tailwindcss-animate"), require("tailwind-scrollbar-hide")],
 }

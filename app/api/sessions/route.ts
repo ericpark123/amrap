@@ -39,7 +39,8 @@ export async function POST(req: Request) {
         skill: skill,
         locationId: location,
         createdBy: userId,
-        participants: {connect: { id: userId }}
+        participants: {connect: { id: userId }},
+        completed: false
       }
   })
 

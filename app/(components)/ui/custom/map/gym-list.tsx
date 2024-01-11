@@ -21,7 +21,7 @@ function GymList({gymList}: any) {
             onClick={()=>slideLeft(elementRef.current)} 
             strokeWidth={1.5} stroke="currentColor" 
             className="w-8 h-8 absolute rotate-180 top-[35%]
-            bg-gray-300 cursor-pointer p-1 rounded-full text-secondary">
+            bg-primary cursor-pointer p-1 rounded-full text-secondary shadow-lg hover:opacity-100 opacity-50">
             <path strokeLinecap="round" 
                 strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
@@ -32,7 +32,7 @@ function GymList({gymList}: any) {
             <div key={index} onClick={()=>selectedGym?.setSelectedGym(item)}>
                 <GymItem gym={item} />
             </div>
-        ))}     
+        ))}
     </div>
 
     <svg xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ function GymList({gymList}: any) {
         fill="none" viewBox="0 0 24 24" 
         strokeWidth={1.5} stroke="currentColor" 
         className="w-8 h-8 absolute right-0 top-[35%]
-        bg-gray-300 cursor-pointer p-1 rounded-full text-white">
+        bg-primary cursor-pointer p-1 rounded-full text-white shadow-lg hover:opacity-100 opacity-50">
         <path strokeLinecap="round" 
         strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
